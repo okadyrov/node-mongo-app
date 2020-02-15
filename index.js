@@ -24,7 +24,7 @@ app.use(todoRoutes)
 async function start() {
     try {
         await mongoose.connect(
-          'mongodb+srv://oleg:adam2003@cluster0-t3asr.mongodb.net/todos',
+          'mongodb+srv://xxxx:xxxxxxx@cluster0-t3asr.mongodb.net/todos',
             {
                 useNewUrlParser: true,
                 useFindAndModify: false
