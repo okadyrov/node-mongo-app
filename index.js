@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const path = require('path')
 const exphbs = require('express-handlebars')
 const todoRoutes = require('./routes/todos')
 
@@ -15,23 +16,27 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.use(todoRoutes)
 
-async function strat() {
-  try {
-      await mongoose.connect('mongodb+srv://oleg:adam2003@cluster0-t3asr.mongodb.net/todos',
-          {
-          useNewUrlParser: true,
-          useFindAndModify: false
-       })
-      app.listen(PORT, () => {
-          console.log('Server has been started...')
-      })
-  } catch (e) {
-          console.log(e)
-  }
-
+async function start() {
+    try {
+        await mongoose.connect(
+          'mongodb+srv://oleg:adam2003@cluster0-t3asr.mongodb.net/todos',
+            {
+                useNewUrlParser: true,
+                useFindAndModify: false
+            }
+        )
+        app.listen(PORT, () => {
+            console.log('Server has been started...')
+        })
+    } catch (e) {
+        console.log(e)
+    }
 }
 
-strat()
+start()
 
